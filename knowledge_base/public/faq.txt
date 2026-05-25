@@ -1,0 +1,22 @@
+Public FAQ
+
+Welcome to the company public FAQ. This page contains quick answers to common employee questions.
+
+General:
+- Office hours: Monday–Friday, 9:00–17:30 local time.
+- Company holiday schedule is published on the intranet's calendar.
+
+Getting Help:
+- For IT support, submit a ticket via the IT service portal or email it-support@company.example.
+- For HR inquiries (payroll, benefits, leave), check the HR portal or email hr@company.example.
+
+Onboarding and Policies:
+- New employees should review the onboarding checklist and complete mandatory security and compliance training
+	during their first week.
+- Company policies, employee handbook, and code of conduct are available on the intranet.
+
+Where to Find Documents:
+- Corporate templates, expense forms, and travel guides are in the Policies & Forms section of the intranet.
+
+Other Questions:
+If you can't find what you're looking for, contact the internal help desk or ask your manager for direction.
