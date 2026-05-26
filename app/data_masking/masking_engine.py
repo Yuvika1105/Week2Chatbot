@@ -1,10 +1,16 @@
+# app/data_masking/masking_engine.py
 from dataclasses import dataclass
 from typing import Dict
-from presidio_analyzer import AnalyzerEngine, RegistryBuilder
+from presidio_analyzer import AnalyzerEngine, RecognizerRegistry
 from presidio_anonymizer import AnonymizerEngine
 from presidio_anonymizer.entities import OperatorConfig
+
 from app.data_masking.masking_policy import MaskingPolicy
-from app.data_masking.custom_recognizers import MGBrandRecognizer, ModelLineRecognizer, MaterialCodeRecognizer
+from app.data_masking.custom_recognizers import (
+    MGBrandRecognizer,
+    ModelLineRecognizer,
+    MaterialCodeRecognizer
+)
 
 @dataclass
 class MaskingResult:
@@ -16,15 +22,22 @@ class MaskingEngine:
     def __init__(self, policy: MaskingPolicy):
         self.policy = policy
         
-        builder = RegistryBuilder()
-        builder.add_recognizer(MGBrandRecognizer())
-        builder.add_recognizer(ModelLineRecognizer())
-        builder.add_recognizer(MaterialCodeRecognizer())
-        registry = builder.create_all_builtin_recognizers()
+        # Initialize Presidio's underlying registry manager
+        registry = RecognizerRegistry()
         
+        # Load all default built-in PII detectors (Email, Phones, etc.)
+        registry.load_predefined_recognizers()
+        
+        # Safely register our custom MG Motors brand, model, and material scanners
+        registry.add_recognizer(MGBrandRecognizer())
+        registry.add_recognizer(ModelLineRecognizer())
+        registry.add_recognizer(MaterialCodeRecognizer())
+        
+        # Wire the populated registry configuration right into the Analyzer Engine
         self.analyzer = AnalyzerEngine(registry=registry)
         self.anonymizer = AnonymizerEngine()
         
+        # Map dynamic entity masks from the YAML policy
         self.operators = {
             entity: OperatorConfig("replace", {"new_value": token})
             for entity, token in self.policy.replacement_map.items()
@@ -35,13 +48,18 @@ class MaskingEngine:
             return MaskingResult(text, 0, {})
         
         analyzer_results = self.analyzer.analyze(
-            text=text, language="en", entities=self.policy.entity_rules, score_threshold=0.4
+            text=text,
+            language="en",
+            entities=self.policy.entity_rules,
+            score_threshold=0.4
         )
         if not analyzer_results:
             return MaskingResult(text, 0, {})
 
         anonymized = self.anonymizer.anonymize(
-            text=text, analyzer_results=analyzer_results, operators=self.operators
+            text=text,
+            analyzer_results=analyzer_results,
+            operators=self.operators
         )
         
         entities_found = {}

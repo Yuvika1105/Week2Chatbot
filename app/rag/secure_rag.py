@@ -1,7 +1,7 @@
 import uuid
 from langchain_groq import ChatGroq
 from config import Config
-from rbac import RBAC
+from app.auth.rbac import RBAC
 from app.guardrails.input_guardrail import InputGuardrail
 from app.guardrails.output_guardrail import OutputGuardrail
 from app.data_masking.masking_policy import MaskingPolicy

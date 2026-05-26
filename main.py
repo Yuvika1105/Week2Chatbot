@@ -1,42 +1,44 @@
 # main.py
 import sys
-from app.chatbot.chatbot import SecuredChatbot
-from app.auth.rbac import RBAC
-
+from app.chatbot.chatbot import SecuredChatbot  # Fixed path!
+from app.auth.rbac import RBAC                   # Fixed path!
+from app.rag.secure_rag import SecureRAGPipeline
 def main():
     print("=" * 60)
-    print("   GENERIC SECURE CHATBOT WORKSPACE: INITIATED ")
+    print("   SECURE WORKSPACE SYSTEM MODULE — ACTIVE")
     print("=" * 60)
     
-    print("\nAvailable user profiles for this session:")
-    for uid, account in RBAC.USER_DIRECTORY.items():
-        print(f"  [{uid}] - Role: {account['role']}")
-    print("-" * 60)
-    
-    user_id = input("\nSelect User Account ID string to launch session context: ").strip()
-    if user_id not in RBAC.USER_DIRECTORY:
-        print("Invalid operator sequence assigned. Program shutting down.")
-        sys.exit(1)
+    print("\nProfiles available:")
+    for uid, data in RBAC.USER_DIRECTORY.items():
+        print(f"  [{uid}] Role: {data['role']}")
         
-    print(f"\nAuthorization validated. Assigned Role: {RBAC.USER_DIRECTORY[user_id]['role']}")
-    print("System active. Type 'exit' to cleanly close your channels.\n")
-    
-    # Intitialize master orchestrator code instance
-    engine = SecuredChatbot()
-    
-    while True:
-        try:
-            user_prompt = input("You: ").strip()
-        except (KeyboardInterrupt, EOFError):
-            break
-            
-        if not user_prompt:
-            continue
-        if user_prompt.lower() in ["exit", "quit"]:
-            break
-            
-        ai_reply = engine.process_message(user_id=user_id, message=user_prompt)
-        print(f"AI: {ai_reply}\n")
+    user_id = input("\nEnter User Account ID string context: ").strip()
+    if user_id not in RBAC.USER_DIRECTORY:
+        print("Invalid operational sequence.")
+        sys.exit(1)
+
+    print("\nSelect Mode:")
+    print("  [1] Chatbot (Week 1)")
+    print("  [2] Secure Production RAG (Week 2)")
+    mode = input("Choice: ").strip()
+
+    if mode == "2":
+        print("\n--- Running Secure RAG Mode (Type 'exit' to quit) ---")
+        pipeline = SecureRAGPipeline()
+        while True:
+            query = input("You: ").strip()
+            if query.lower() in ["exit", "quit"]: break
+            if not query: continue
+            res = pipeline.execute_query(user_id, query)
+            print(f"AI: {res['response']}\n")
+    else:
+        print("\n--- Running General Chatbot Mode (Type 'exit' to quit) ---")
+        engine = SecuredChatbot()
+        while True:
+            query = input("You: ").strip()
+            if query.lower() in ["exit", "quit"]: break
+            if not query: continue
+            print(f"AI: {engine.process_message(user_id, query)}\n")
 
 if __name__ == "__main__":
     main()
