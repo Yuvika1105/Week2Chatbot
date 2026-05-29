@@ -18,14 +18,16 @@
 # app/guardrails/pii_detector.py
 import logging
 import re
-from presidio_analyzer import AnalyzerEngine
+from presidio_analyzer import AnalyzerEngine, RecognizerRegistry
 from presidio_anonymizer import AnonymizerEngine
 from presidio_anonymizer.entities import OperatorConfig
+from app.data_masking.custom_recognizers import CustomPhoneRecognizer, CustomNameRecognizer
 
 logger = logging.getLogger(__name__)
 
 # List of tracking entities to identify and scrub
 ENTITIES_TO_DETECT = [
+    "PERSON",
     "EMAIL_ADDRESS",
     "PHONE_NUMBER",
     "US_SSN",
@@ -43,7 +45,11 @@ ENTITIES_TO_DETECT = [
 class PIIDetector:
     def __init__(self) -> None:
         # Initialize Presidio's underlying scanning and redacting engines
-        self._analyzer = AnalyzerEngine()
+        registry = RecognizerRegistry()
+        registry.load_predefined_recognizers()
+        registry.add_recognizer(CustomPhoneRecognizer())
+        registry.add_recognizer(CustomNameRecognizer())
+        self._analyzer = AnalyzerEngine(registry=registry)
         self._anonymizer = AnonymizerEngine()
 
         # Build structural replacement tokens dynamically: e.g., <EMAIL_ADDRESS>
@@ -85,13 +91,20 @@ class PIIDetector:
             if cc_matches:
                 masked_text = cc_pattern.sub("<CREDIT_CARD>", masked_text)
 
-            if ssn_matches or cc_matches:
+            phone_pattern = re.compile(r"\b(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b")
+            phone_matches = len(phone_pattern.findall(masked_text))
+            if phone_matches:
+                masked_text = phone_pattern.sub("<PHONE_NUMBER>", masked_text)
+
+            if ssn_matches or cc_matches or phone_matches:
                 entities_found = []
                 if ssn_matches:
                     entities_found.append("US_SSN")
                 if cc_matches:
                     entities_found.append("CREDIT_CARD")
-                entity_count = ssn_matches + cc_matches
+                if phone_matches:
+                    entities_found.append("PHONE_NUMBER")
+                entity_count = ssn_matches + cc_matches + phone_matches
                 return {
                     "masked_text": masked_text,
                     "pii_detected": True,
@@ -139,6 +152,15 @@ class PIIDetector:
             if "CREDIT_CARD" not in entities_found:
                 entities_found.append("CREDIT_CARD")
             entity_count += cc_matches
+
+        # Mask raw phone number patterns that Presidio didn't catch (e.g., 10-digit numbers or standard formats)
+        phone_pattern = re.compile(r"\b(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b")
+        phone_matches = len(phone_pattern.findall(masked_text))
+        if phone_matches:
+            masked_text = phone_pattern.sub("<PHONE_NUMBER>", masked_text)
+            if "PHONE_NUMBER" not in entities_found:
+                entities_found.append("PHONE_NUMBER")
+            entity_count += phone_matches
 
         if entities_found:
             logger.info(f"PII masked | entities={entities_found} | original_len={len(text)} | masked_len={len(masked_text)}")

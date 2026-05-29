@@ -45,11 +45,11 @@ class RBACManager:
         if role is None:
             return []
         if role == "admin":
-            return ["all"]
+            return ["all", "mg_data"]
         mapping = {
             "hr_user": ["hr"],
-            "finance_user": ["finance"],
-            "it_user": ["it"],
+            "finance_user": ["finance", "mg_data"],
+            "it_user": ["it", "mg_data"],
             "guest": [],
         }
         return mapping.get(role, [])

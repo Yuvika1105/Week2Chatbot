@@ -1,0 +1,12 @@
+column_rules:
+  # none (PII-only)
+
+entity_rules:
+  - PERSON
+  - EMAIL_ADDRESS
+  - PHONE_NUMBER
+
+replacement_map:
+  PERSON:      "<PERSON>"
+  EMAIL_ADDRESS: "<EMAIL_ADDRESS>"
+  PHONE_NUMBER: "<PHONE_NUMBER>"

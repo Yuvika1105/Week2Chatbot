@@ -17,7 +17,7 @@ entity_rules:
   - PHONE_NUMBER
 
 replacement_map:
-  MG_BRAND:    "<CLIENT>"
+  MG_BRAND:    ""
   MG_MODEL:    "<MODEL_LINE>"
   MG_MATERIAL: "<MATERIAL_CODE>"
   PERSON:      "<PERSON>"

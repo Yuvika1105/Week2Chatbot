@@ -48,6 +48,7 @@ class AuditLogger:
         pass_or_fail: str,
         risk_category: str,
         application_name: str = "chatbot",
+        **kwargs,
     ) -> None:
         """Write one JSONL entry to the audit log.
 
@@ -77,6 +78,7 @@ class AuditLogger:
             "pass_or_fail":     pass_or_fail,
             "risk_category":    risk_category,
         }
+        entry.update(kwargs)
 
         try:
             with open(Config.AUDIT_LOG_PATH, "a", encoding="utf-8") as fh:
