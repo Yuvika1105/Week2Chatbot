@@ -1,5 +1,11 @@
-﻿.venv/
+﻿venv/
+.venv/
+
 __pycache__/
-*.py[cod]
+*.pyc
+
 .env
-logs/
+
+.pytest_cache/
+.vscode/
+.idea/
