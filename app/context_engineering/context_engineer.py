@@ -31,4 +31,5 @@ class ContextEngineer:
             f"Answer using ONLY the context above. "
             f"Be clear and concise. Do NOT repeat file names, chunk labels, or internal formatting in your answer."
         )
-        return ChatPromptTemplate.from_messages([("system", full_prompt), ("human", "{query}")]), full_prompt
+        escaped_prompt = full_prompt.replace("{", "{{").replace("}", "}}")
+        return ChatPromptTemplate.from_messages([("system", escaped_prompt), ("human", "{query}")]), full_prompt

@@ -105,7 +105,7 @@ class CustomNameRecognizer(PatternRecognizer):
             ),
             Pattern(
                 name="i am",
-                regex=r"(?<=i am )[A-Za-z]+\b",
+                regex=r"(?<=i am )[A-Z][a-z]+\b",
                 score=0.95,
             )
         ]

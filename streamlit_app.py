@@ -13,8 +13,8 @@ from app.auth.rbac import RBAC
 
 DEFAULT_POLICY_PATH = "data/masking_policies/mg_policy.yaml"
 
-def chunk_text(text: str, chunk_size: int = 500, chunk_overlap: int = 50) -> list:
-    """Split text into overlapping chunks of a given character size."""
+def chunk_text(text: str, chunk_size: int = 1000, chunk_overlap: int = 100) -> list:
+    """Split text into overlapping chunks of a given character size without cutting words in half."""
     paragraphs = text.split("\n\n")
     chunks = []
     for p in paragraphs:
@@ -25,8 +25,23 @@ def chunk_text(text: str, chunk_size: int = 500, chunk_overlap: int = 50) -> lis
         else:
             start = 0
             while start < len(p):
-                chunks.append(p[start:start+chunk_size])
-                start += (chunk_size - chunk_overlap)
+                end = start + chunk_size
+                # If we are not at the end of the text, back up to the nearest space or newline
+                if end < len(p):
+                    last_space = p.rfind(" ", start, end)
+                    last_newline = p.rfind("\n", start, end)
+                    split_idx = max(last_space, last_newline)
+                    if split_idx > start:
+                        end = split_idx
+                
+                chunk = p[start:end].strip()
+                if chunk:
+                    chunks.append(chunk)
+                
+                start = end - chunk_overlap
+                # Prevent infinite loop if we can't advance
+                if start <= end - chunk_size:
+                    start = end
     return chunks
 
 def process_chat_uploaded_file(uploaded_file, engine) -> str:

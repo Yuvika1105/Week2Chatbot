@@ -72,7 +72,12 @@ class LocalVectorStore:
         # Score documents
         scored_docs: List[Tuple[float, Document]] = []
         query_lower = query.lower()
-        query_words = [w for w in query_lower.split() if len(w) > 2]
+        import re
+        clean_query = re.sub(r'[^\w\s]', '', query_lower)
+        stop_words = {"the", "a", "an", "and", "or", "but", "is", "are", "was", "were", "be", "been", "being", "to", "from", "in", "on", "at", "by", "for", "with", "about", "of", "it", "its", "they", "them", "their", "he", "him", "his", "she", "her", "you", "your", "we", "us", "our", "what", "which", "who", "whom", "this", "that", "these", "those"}
+        query_words = [w for w in clean_query.split() if len(w) >= 2 and w not in stop_words]
+        if not query_words:
+            query_words = [w for w in clean_query.split() if len(w) >= 2]
 
         for doc in filtered_docs:
             content_lower = doc.page_content.lower()
