@@ -66,6 +66,9 @@ class InputGuardrail:
 
 
     def scan(self, user_input: str) -> dict:
+        if user_input is None:
+            user_input = ""
+        user_input = str(user_input)
         # ────────── LAYER 1: LOCAL SECURITY SCANS ──────────
         lower_input = user_input.lower()
 
@@ -76,6 +79,13 @@ class InputGuardrail:
             "ignore all previous instructions",
             "ignore previous instructions",
             "forget previous instructions",
+            "ignore all previous rules",
+            "forget the documents",
+            "bypass the guardrails",
+            "bypass guardrails",
+            "bypass rbac",
+            "unrestricted mode",
+            "unrestricted ai",
             "override",
             "system prompt",
             "output the system prompt",
@@ -178,3 +188,8 @@ class InputGuardrail:
             "layer": "none",
             "risk_score": 0.0,
         }
+
+def check_input(user_input: str) -> dict:
+    """Helper wrapper function to scan input using InputGuardrail."""
+    guard = InputGuardrail()
+    return guard.scan(user_input)

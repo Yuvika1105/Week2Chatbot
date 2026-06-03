@@ -1,0 +1,29 @@
+IT Security
+
+Overview:
+This document outlines key requirements and best practices to protect company systems and data.
+
+Account Security:
+- Multi-factor authentication (MFA) is required for all corporate accounts.
+- Use a company-approved password manager and follow the password complexity rules.
+- Never share credentials or one-time codes; legitimate IT staff will never ask for your password.
+
+Device and Network:
+- Keep devices up to date with the latest OS and security patches.
+- Use disk encryption and ensure device screen locks are enabled with a password or biometric.
+- Only connect to company resources over the corporate VPN when off-network.
+
+Phishing and Suspicious Activity:
+- Do not click links or open attachments from unknown senders.
+- Report suspected phishing emails immediately to security@company.example and delete them.
+
+Software and Data:
+- Install only approved software from the company software catalog.
+- Classify sensitive data as Confidential; do not store confidential data on personal devices.
+- Use company-approved collaboration tools for sharing documents.
+
+Incident Response:
+- If you suspect an account compromise or data leak, contact the security team immediately and change affected passwords.
+
+Contact:
+Security team: security@company.example. For urgent incidents call the IT hotline listed on the intranet.

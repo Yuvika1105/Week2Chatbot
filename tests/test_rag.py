@@ -33,12 +33,10 @@ class TestSecureRAGPipeline:
         # Redirect log to a temp file
         mocker.patch("app.audit_logging.audit_logger.Config.AUDIT_LOG_PATH", str(tmp_path / "audit.jsonl"))
         
-        # Ingested local data contains ASTOR info
-        res = secure_pipeline.execute_query("1", "Show me the ASTOR dealers")
+        res = secure_pipeline.execute_query("1", "What are the latest travel policy expenses?")
         
         assert res["blocked"] is False
-        assert "ASTOR" not in res["masked_query"]
-        assert "AR" in res["masked_query"]          # ASTOR is now abbreviated to AR
+        assert res["masked_query"] == "What are the latest travel policy expenses?"
         assert len(res["sources"]) >= 0
 
         # Verify audit log contains expected Week 2 fields
@@ -49,19 +47,6 @@ class TestSecureRAGPipeline:
         assert "masked_query" in entry
         assert "masking_counts" in entry
         assert "grounding_check" in entry
-
-    def test_hr_user_mg_data_denied(self, secure_pipeline, tmp_path, mocker):
-        mocker.patch("app.audit_logging.audit_logger.Config.AUDIT_LOG_PATH", str(tmp_path / "audit.jsonl"))
-        
-        res = secure_pipeline.execute_query("2", "Show me the ASTOR dealers")
-        
-        assert res["blocked"] is True
-        assert "Access Denied" in res["response"]
-        
-        log_path = tmp_path / "audit.jsonl"
-        entry = json.loads(log_path.read_text().strip().splitlines()[0])
-        assert entry["pass_or_fail"] == "fail"
-        assert entry["risk_category"] == "rbac_denied"
 
     def test_guest_rag_denied(self, secure_pipeline, tmp_path, mocker):
         mocker.patch("app.audit_logging.audit_logger.Config.AUDIT_LOG_PATH", str(tmp_path / "audit.jsonl"))

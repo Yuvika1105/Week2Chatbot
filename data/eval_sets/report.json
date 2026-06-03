@@ -1,0 +1,173 @@
+{
+  "aggregate": {
+    "context_precision": 0.16666666666666666,
+    "context_recall": 0.9166666666666666,
+    "faithfulness": 0.8333333333333334,
+    "answer_relevance": 0.6284632034632035,
+    "source_accuracy": 1.0,
+    "answer_f1": {
+      "precision": 0.8036185628097393,
+      "recall": 0.7772468272468274,
+      "f1": 0.7809051207077524
+    }
+  },
+  "per_question": [
+    {
+      "question": "How many days of paid annual leave are full-time employees entitled to?",
+      "context_precision": 0.4,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.8,
+      "source_accuracy": 1.0,
+      "answer_f1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    {
+      "question": "What happens to carried-over leave days if they are not used within the first 90 days?",
+      "context_precision": 0.2,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.7272727272727273,
+      "source_accuracy": 1.0,
+      "answer_f1": {
+        "precision": 0.8461538461538461,
+        "recall": 0.8461538461538461,
+        "f1": 0.8461538461538461
+      }
+    },
+    {
+      "question": "What is the entitlement for paid sick leave per year?",
+      "context_precision": 0.2,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.8333333333333334,
+      "source_accuracy": 1.0,
+      "answer_f1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    {
+      "question": "Within how many days should expense reports be submitted?",
+      "context_precision": 0.2,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.75,
+      "source_accuracy": 1.0,
+      "answer_f1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    {
+      "question": "What happens to expense reports submitted after 60 days?",
+      "context_precision": 0.2,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.7142857142857143,
+      "source_accuracy": 1.0,
+      "answer_f1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    {
+      "question": "What approval is required for expenses above $500?",
+      "context_precision": 0.2,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.8,
+      "source_accuracy": 1.0,
+      "answer_f1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    {
+      "question": "Is multi-factor authentication mandatory for company accounts?",
+      "context_precision": 0.0,
+      "context_recall": 0.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.6666666666666666,
+      "source_accuracy": 1.0,
+      "answer_f1": {
+        "precision": 1.0,
+        "recall": 0.7777777777777778,
+        "f1": 0.8750000000000001
+      }
+    },
+    {
+      "question": "What should I do if I receive a suspicious phishing email?",
+      "context_precision": 0.2,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.5,
+      "source_accuracy": 1.0,
+      "answer_f1": {
+        "precision": 0.5294117647058824,
+        "recall": 0.9,
+        "f1": 0.6666666666666667
+      }
+    },
+    {
+      "question": "What is the maximum reimbursement for daily meal expenses during business travel?",
+      "context_precision": 0.2,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.375,
+      "source_accuracy": 1.0,
+      "answer_f1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    {
+      "question": "Are domestic flights allowed to be booked in business class?",
+      "context_precision": 0.2,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.5,
+      "source_accuracy": 1.0,
+      "answer_f1": {
+        "precision": 1.0,
+        "recall": 0.6363636363636364,
+        "f1": 0.7777777777777778
+      }
+    },
+    {
+      "question": "Can I bring my pet iguana to work in the office?",
+      "context_precision": 0.0,
+      "context_recall": 1.0,
+      "faithfulness": 0.0,
+      "answer_relevance": 0.375,
+      "source_accuracy": 1.0,
+      "answer_f1": {
+        "precision": 0.14285714285714285,
+        "recall": 0.08333333333333333,
+        "f1": 0.10526315789473685
+      }
+    },
+    {
+      "question": "How do I request a company hoverboard for my commute?",
+      "context_precision": 0.0,
+      "context_recall": 1.0,
+      "faithfulness": 0.0,
+      "answer_relevance": 0.5,
+      "source_accuracy": 1.0,
+      "answer_f1": {
+        "precision": 0.125,
+        "recall": 0.08333333333333333,
+        "f1": 0.1
+      }
+    }
+  ],
+  "timestamp": "2026-06-02T17:13:12.567099"
+}

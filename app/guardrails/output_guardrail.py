@@ -38,6 +38,9 @@ class OutputGuardrail:
         self._pii_detector = PIIDetector()
 
     def process(self, llm_response: str) -> dict:
+        if llm_response is None:
+            llm_response = ""
+        llm_response = str(llm_response)
         # ── Step 1: Toxicity check ───────────────────────────────────────────
         toxicity_result = self._toxicity_checker.scan(llm_response)
 

@@ -16,7 +16,7 @@ class MaskingPolicy:
         with open(file_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f) or {}
         return cls(
-            column_rules=data.get("column_rules", {}),
-            entity_rules=data.get("entity_rules", []),
-            replacement_map=data.get("replacement_map", {})
+            column_rules=data.get("column_rules") or {},
+            entity_rules=data.get("entity_rules") or [],
+            replacement_map=data.get("replacement_map") or {}
         )

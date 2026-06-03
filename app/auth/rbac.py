@@ -29,11 +29,33 @@ class RBACManager:
         "5": {"role": "guest"},
     }
 
+    allowed_documents = {
+        "admin": ["hr", "finance", "it", "public", "mg_data"],
+        "hr_user": ["hr", "public"],
+        "finance_user": ["finance", "public", "mg_data"],
+        "it_user": ["it", "public", "mg_data"],
+        "guest": ["public"],
+    }
+
+    def _normalize_uid(self, user_id: str) -> str:
+        if isinstance(user_id, str) and user_id.startswith("u00"):
+            return user_id[-1]
+        return str(user_id)
+
+    def get_allowed_documents(self, user_id: str) -> list[str]:
+        user_id = self._normalize_uid(user_id)
+        role = self.get_role(user_id)
+        if role is None:
+            return []
+        return self.allowed_documents.get(role, [])
+
     def get_role(self, user_id: str) -> str | None:
+        user_id = self._normalize_uid(user_id)
         rec = self.USER_DIRECTORY.get(user_id)
         return rec.get("role") if rec else None
 
     def get_user(self, user_id: str) -> dict | None:
+        user_id = self._normalize_uid(user_id)
         return self.USER_DIRECTORY.get(user_id)
 
     def get_rag_document_groups(self, user_id: str) -> list:
@@ -41,21 +63,23 @@ class RBACManager:
 
         Tests expect admin to include 'all' and guests to return an empty list.
         """
+        user_id = self._normalize_uid(user_id)
         role = self.get_role(user_id)
         if role is None:
             return []
         if role == "admin":
-            return ["all", "mg_data"]
+            return ["all"]
         mapping = {
             "hr_user": ["hr"],
-            "finance_user": ["finance", "mg_data"],
-            "it_user": ["it", "mg_data"],
+            "finance_user": ["finance"],
+            "it_user": ["it"],
             "guest": [],
         }
         return mapping.get(role, [])
 
     def get_sql_tables(self, user_id: str) -> list:
         """Return list of SQL table names the role is permitted to query (test-only convenience)."""
+        user_id = self._normalize_uid(user_id)
         role = self.get_role(user_id)
         if role is None:
             return []
@@ -69,6 +93,7 @@ class RBACManager:
         return mapping.get(role, [])
 
     def can_use_chatbot(self, user_id: str) -> bool:
+        user_id = self._normalize_uid(user_id)
         return self.get_role(user_id) is not None
 
     def get_allowed_files(self, user_id: str, base_kb_dir: str | None = None) -> List[str]:
@@ -76,6 +101,7 @@ class RBACManager:
 
         If the user is unknown, return an empty list (fail-closed).
         """
+        user_id = self._normalize_uid(user_id)
         role = self.get_role(user_id)
         if role is None:
             return []
@@ -102,6 +128,7 @@ class RBACManager:
 
         Unknown users get a conservative guest prompt (fail-closed).
         """
+        user_id = self._normalize_uid(user_id)
         role = self.get_role(user_id)
         if role == "admin":
             return (

@@ -5,8 +5,20 @@ entity_rules:
   - PERSON
   - EMAIL_ADDRESS
   - PHONE_NUMBER
+  - CREDIT_CARD
+  - IN_AADHAAR
+  - IN_PAN
+  - LOCATION
+  - IP_ADDRESS
+  - URL
 
 replacement_map:
-  PERSON:      "<PERSON>"
+  PERSON:        "<PERSON>"
   EMAIL_ADDRESS: "<EMAIL_ADDRESS>"
-  PHONE_NUMBER: "<PHONE_NUMBER>"
+  PHONE_NUMBER:  "<PHONE_NUMBER>"
+  CREDIT_CARD:   "<CREDIT_CARD>"
+  IN_AADHAAR:    "<IN_AADHAAR>"
+  IN_PAN:        "<IN_PAN>"
+  LOCATION:      "<LOCATION>"
+  IP_ADDRESS:    "<IP_ADDRESS>"
+  URL:           "<URL>"

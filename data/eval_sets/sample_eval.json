@@ -1,0 +1,95 @@
+[
+  {
+    "question": "How many days of paid annual leave are full-time employees entitled to?",
+    "ground_truth_answer": "Full-time employees are entitled to 20 days of paid annual leave per calendar year.",
+    "ground_truth_sources": ["leave_policy.txt"],
+    "relevant_chunks": [
+      "Employees are entitled to 20 days of paid annual leave per calendar year.",
+      "Full-time employees: 20 days per year, prorated for part-time staff."
+    ]
+  },
+  {
+    "question": "What happens to carried-over leave days if they are not used within the first 90 days?",
+    "ground_truth_answer": "Carried-over leave days must be used within the first 90 days of the new year or they will expire.",
+    "ground_truth_sources": ["leave_policy.txt"],
+    "relevant_chunks": [
+      "Any carried-over days must be used within the first 90 days of the new year or they will expire."
+    ]
+  },
+  {
+    "question": "What is the entitlement for paid sick leave per year?",
+    "ground_truth_answer": "Employees are entitled to 10 days of paid sick leave per year.",
+    "ground_truth_sources": ["leave_policy.txt"],
+    "relevant_chunks": [
+      "Sick Leave: Employees are entitled to 10 days of paid sick leave per year; long-term sickness requires a medical certificate and coordination with HR."
+    ]
+  },
+  {
+    "question": "Within how many days should expense reports be submitted?",
+    "ground_truth_answer": "Expense reports should be submitted within 30 days of the expense date.",
+    "ground_truth_sources": ["expense_policy.txt"],
+    "relevant_chunks": [
+      "Expense reports should be submitted within 30 days of the expense date."
+    ]
+  },
+  {
+    "question": "What happens to expense reports submitted after 60 days?",
+    "ground_truth_answer": "Expenses submitted after 60 days require manager justification and may be declined.",
+    "ground_truth_sources": ["expense_policy.txt"],
+    "relevant_chunks": [
+      "Expenses submitted after 60 days require manager justification and may be declined."
+    ]
+  },
+  {
+    "question": "What approval is required for expenses above $500?",
+    "ground_truth_answer": "Expenses above $500 require manager and finance approval before reimbursement.",
+    "ground_truth_sources": ["expense_policy.txt"],
+    "relevant_chunks": [
+      "Expenses above $500 require manager and finance approval before reimbursement."
+    ]
+  },
+  {
+    "question": "Is multi-factor authentication mandatory for company accounts?",
+    "ground_truth_answer": "Yes, multi-factor authentication (MFA) is required for all corporate accounts.",
+    "ground_truth_sources": ["it_security.txt"],
+    "relevant_chunks": [
+      "Multi-factor authentication (MFA) is required for all corporate accounts."
+    ]
+  },
+  {
+    "question": "What should I do if I receive a suspicious phishing email?",
+    "ground_truth_answer": "You should report suspected phishing emails immediately to security@company.example and delete them.",
+    "ground_truth_sources": ["it_security.txt"],
+    "relevant_chunks": [
+      "Report suspected phishing emails immediately to security@company.example and delete them."
+    ]
+  },
+  {
+    "question": "What is the maximum reimbursement for daily meal expenses during business travel?",
+    "ground_truth_answer": "Daily meal expenses are reimbursed up to $75 per day.",
+    "ground_truth_sources": ["travel_policy.txt"],
+    "relevant_chunks": [
+      "Daily meal expenses are reimbursed up to $75 per day."
+    ]
+  },
+  {
+    "question": "Are domestic flights allowed to be booked in business class?",
+    "ground_truth_answer": "No, economy class must be used for all domestic flights and flights under 6 hours.",
+    "ground_truth_sources": ["travel_policy.txt"],
+    "relevant_chunks": [
+      "Economy class must be used for all domestic flights and flights under 6 hours."
+    ]
+  },
+  {
+    "question": "Can I bring my pet iguana to work in the office?",
+    "ground_truth_answer": "I'm sorry, I don't have enough information in the provided context to answer that question.",
+    "ground_truth_sources": [],
+    "relevant_chunks": []
+  },
+  {
+    "question": "How do I request a company hoverboard for my commute?",
+    "ground_truth_answer": "I'm sorry, I don't have enough information in the provided context to answer that question.",
+    "ground_truth_sources": [],
+    "relevant_chunks": []
+  }
+]

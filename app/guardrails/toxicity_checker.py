@@ -99,6 +99,9 @@ class ToxicityChecker:
         )
 
     def scan(self, llm_response: str) -> dict:
+        if llm_response is None:
+            llm_response = ""
+        llm_response = str(llm_response)
         # ── Layer 1: local llm-guard Toxicity scanner ────────────────────────
         layer1_result = self._run_layer1(llm_response)
         if not layer1_result["safe"]:

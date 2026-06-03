@@ -17,8 +17,8 @@ def main():
     if args.module == "guardrails":
         pytest_args.append("tests/test_guardrails.py")
     elif args.module == "rag":
-        # Run masking and mg data tests
-        pytest_args.extend(["tests/test_mg_masking.py", "tests/test_masking.py", "tests/test_rag.py"])
+        # Run masking and data tests
+        pytest_args.extend(["tests/test_masking.py", "tests/test_rag.py"])
         # We also include any rag integration tests
         # If there are others, we could append them here
     else:

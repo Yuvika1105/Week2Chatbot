@@ -15,8 +15,8 @@ class Config:
     # Data and storage defaults
     BASE_KB_DIR = os.getenv("BASE_KB_DIR", "knowledge_base")
     AUDIT_LOG_PATH = os.getenv("AUDIT_LOG_PATH", os.path.join("logs", "audit.jsonl"))
-    MG_DOCS_DIR = os.getenv("MG_DOCS_DIR", "mg_data_masking")
     MASKING_POLICIES_DIR = os.getenv("MASKING_POLICIES_DIR", os.path.join("data", "masking_policies"))
+    MEMORY_DB_PATH = os.getenv("MEMORY_DB_PATH", os.path.join("data", "chatbot_memory.db"))
 
 # Set environment variables from Config for guardrail reusability
 # This allows guardrails to work with environment variables while maintaining backward compatibility

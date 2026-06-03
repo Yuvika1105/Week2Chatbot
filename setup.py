@@ -35,7 +35,6 @@ def main():
 
     # Initialize Ingestors
     default_ingestor = DocumentIngestor("data/masking_policies/default_policy.yaml")
-    mg_ingestor = DocumentIngestor("data/masking_policies/mg_policy.yaml")
 
     total_chunks = 0
 
@@ -65,29 +64,7 @@ def main():
             vector_store.add_documents(docs)
             total_chunks += len(docs)
 
-    # 2. Ingest MG Motors documents
-    mg_dir = Path("mg_data_masking")
-    if mg_dir.exists():
-        for file_path in mg_dir.glob("*.csv"):
-            print(f"[+] Ingesting MG Motors raw file with pre-masking: {file_path.name}")
-            masked_csv_str = mg_ingestor.prepare_file_content(str(file_path))
-            
-            # Read rows from the masked CSV string
-            f_in = io.StringIO(masked_csv_str)
-            reader = csv.DictReader(f_in)
-            
-            docs = []
-            for idx, row in enumerate(reader):
-                row_str = ", ".join([f"{k}: {v}" for k, v in row.items() if v])
-                docs.append(
-                    Document(
-                        page_content=row_str,
-                        metadata={"document_category": "mg_data", "source": f"{file_path.name} [Row {idx+1}]"}
-                    )
-                )
-            
-            vector_store.add_documents(docs)
-            total_chunks += len(docs)
+
 
     print("-" * 60)
     print(f"[OK] Ingestion completed. Total chunks loaded: {total_chunks}")
